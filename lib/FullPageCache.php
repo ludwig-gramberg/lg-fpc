@@ -171,10 +171,11 @@ class FullPageCache {
 		$body = $page->getBody();
 		preg_match_all('/\<!\-\-FPC:(.+)\-\-\>/U', $body, $m);
 		foreach($m[1] as $bodyTag) {
+			$bodyTagQuoted = preg_quote($bodyTag);
 			if(in_array($bodyTag, $this->renderTags)) {
-				$body = preg_replace('/\<!\-\-(\/)?FPC:'.$bodyTag.'\-\-\>/', '', $body);
+				$body = preg_replace('/\<!\-\-(\/)?FPC:'.$bodyTagQuoted.'\-\-\>/', '', $body);
 			} else {
-				$body = preg_replace('/\<!\-\-FPC:'.$bodyTag.'\-\-\>(.*?)\<!\-\-\/FPC:'.$bodyTag.'\-\-\>/sU', '', $body);
+				$body = preg_replace('/\<!\-\-FPC:'.$bodyTagQuoted.'\-\-\>(.*)\<!\-\-\/FPC:'.$bodyTagQuoted.'\-\-\>/sU', '', $body);
 			}
 		}
 		$page->setBody($body);
