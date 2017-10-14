@@ -27,6 +27,9 @@ function lg_fpc_settings_process() {
 	if(array_key_exists('empty_fpc', $_POST)) {
 		do_action('lg_fpc_flush');
 	}
+	if(array_key_exists('refresh_fpc', $_POST)) {
+		do_action('lg_fpc_refresh');
+	}
 }
 function lg_fpc_settings_page() {
 
@@ -69,6 +72,7 @@ function lg_fpc_settings_page() {
 				</tbody>
 			</table>
 			<?php settings_fields( 'lg_fpc' ); ?>
+			<?php submit_button(__('Refresh All Pages'), 'primary', 'refresh_fpc'); ?>
 			<?php submit_button(__('Empty Full Page Cache'), 'delete', 'empty_fpc'); ?>
 		</form>
 	</div>
