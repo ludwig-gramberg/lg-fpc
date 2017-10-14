@@ -283,12 +283,28 @@ class Backend {
 	}
 
 	/**
-	 *
+	 * flush entire cache
 	 */
 	public function flush() {
 		try {
 			$connection = $this->getConnection();
 			$connection->flushAll();
+		} catch(\Exception $e) {
+			error_log((string)$e);
+		}
+		return array();
+	}
+
+	/**
+	 * set all pages to be refreshed by the cache worker
+	 */
+	public function refreshAll() {
+		try {
+			$connection = $this->getConnection();
+			$keys = $connection->hKeys(self::CACHE_KEY_LIST);
+			foreach($keys as $key) {
+				$connection->zAdd(self::CACHE_KEY_QUEUE, 0, $key);
+			}
 		} catch(\Exception $e) {
 			error_log((string)$e);
 		}

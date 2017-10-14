@@ -14,6 +14,9 @@ require_once 'bootstrap.php';
 function lg_fpc_flush() {
 	\Lg\FullPageCache::getInstance()->flush();
 }
+function lg_fpc_refresh() {
+	\Lg\FullPageCache::getInstance()->refreshAll();
+}
 function lg_fpc_settings_init() {
 	register_setting('lg_fpc', 'lg_fpc', 'lg_fpc_settings_process');
 }
@@ -73,5 +76,6 @@ function lg_fpc_settings_page() {
 }
 
 add_action('lg_fpc_flush', 'lg_fpc_flush', 10, 0);
+add_action('lg_fpc_refresh', 'lg_fpc_refresh', 10, 0);
 add_action('admin_init', 'lg_fpc_settings_init');
 add_action('admin_menu', 'lg_fpc_settings_menu');

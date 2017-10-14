@@ -228,6 +228,10 @@ class FullPageCache {
 		$this->backend->flush();
 	}
 
+	public function refreshAll() {
+		$this->backend->refreshAll();
+	}
+
 	/**
 	 * @return Stats
 	 */
