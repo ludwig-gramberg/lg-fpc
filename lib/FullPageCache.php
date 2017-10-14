@@ -73,6 +73,10 @@ class FullPageCache {
 	 */
 	public function run(Request $request) {
 
+		if($this->isCacheClient) {
+			return null;
+		}
+
 		// allowed protocols
 		$allowedProtocols = $this->config->getProtocols();
 		if(!in_array($request->getProtocol(), $allowedProtocols)) {
