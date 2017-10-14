@@ -138,10 +138,7 @@ class Backend {
 				unset($uncompressedPageData);
 			}
 
-			$expireTime = intval($connection->zScore(self::CACHE_KEY_QUEUE, $requestKey));
-			$expireTime = $expireTime > 0 ? $expireTime : null;
-
-			$page = new Page($pageMetaData->pageKey, $pageData, $pageMetaData->responseHeaders, $expireTime, $pageMetaData->refreshInterval);
+			$page = new Page($pageMetaData->pageKey, $pageData, $pageMetaData->responseHeaders);
 			return $page;
 
 		} catch(\Exception $e) {
