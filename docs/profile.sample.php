@@ -42,11 +42,10 @@ $config->setUseCacheCallback(function($pageKey) {
 
 $config->setProcessTagsCallback(function() {
 	$tags = array();
-	// from website account plugin
 	if(array_key_exists('is_logged_in', $_SESSION)) {
-		$tags[] = IFE_CACHE_TAG_ACCOUNT_SESSION_ACTIVE;
+		$tags[] = CACHE_TAG_ACCOUNT_SESSION_ACTIVE;
 	} else {
-		$tags[] = IFE_CACHE_TAG_ACCOUNT_SESSION_INACTIVE;
+		$tags[] = CACHE_TAG_ACCOUNT_SESSION_INACTIVE;
 	}
 	return $tags;
 });
