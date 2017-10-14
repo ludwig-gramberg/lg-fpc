@@ -141,7 +141,7 @@ class FullPageCache {
 		// all param permutations sorted alphabetically
 		array_walk($paramsOptions, function(&$params) { sort($params); });
 		// longest lists first
-		sort($paramsOptions, function($a, $b) { return count($b)-count($a); });
+		usort($paramsOptions, function($a, $b) { return count($b)-count($a); });
 
 		foreach($paramsOptions as $paramsOption) {
 			$matched = true;
