@@ -237,6 +237,30 @@ class Backend {
 	}
 
 	/**
+	 * @param $requestKey
+	 */
+	public function removePage($requestKey) {
+		try {
+			$connection = $this->getConnection();
+
+			/**
+			 * Sets field in the hash stored at key to value, only if field does not yet exist.
+			 * If key does not exist, a new key holding a hash is created.
+			 * If field already exists, this operation has no effect.
+			 * https://redis.io/commands/hsetnx
+			 */
+			$cacheKey = self::CACHE_KEY_PAGE_.$requestKey;
+
+			$connection->del($cacheKey);
+			$connection->hDel(self::CACHE_KEY_LIST, $requestKey);
+			$connection->zRem(self::CACHE_KEY_QUEUE, $requestKey);
+
+		} catch(\Exception $e) {
+			error_log((string)$e);
+		}
+	}
+
+	/**
 	 * @return array
 	 */
 	public function getPagesToRefresh() {

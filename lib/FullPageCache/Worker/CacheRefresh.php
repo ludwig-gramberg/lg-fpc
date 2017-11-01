@@ -94,6 +94,13 @@ class CacheRefresh extends AbstractWorker {
 					$curlDebug
 				) = $result;
 
+				if($httpStatus == 404 || $httpStatus == 410 || $httpStatus == 301) {
+					// remove page from list for these statuses
+					error_log('remove from cache '.$requestKey.' response: '.$httpStatus);
+					$this->backend->removePage($requestKey);
+					continue;
+				}
+
 				if($httpStatus <> 200 || $curlErrno != CURLE_OK) {
 					error_log('cache fetch for '.$requestKey.' failed: '.$httpStatus.', error: '.$curlError.'('.$curlErrno.'), info: '.print_r($curlDebug, true));
 					continue;
