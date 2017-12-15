@@ -94,7 +94,7 @@ class CacheRefresh extends AbstractWorker {
 					$curlDebug
 				) = $result;
 
-				if($httpStatus == 404 || $httpStatus == 410 || $httpStatus == 301) {
+				if($httpStatus == 404 || $httpStatus == 410 || $httpStatus == 301 || $httpStatus == 302) {
 					// remove page from list for these statuses
 					error_log('remove from cache '.$requestKey.' response: '.$httpStatus);
 					$this->backend->removePage($requestKey);
